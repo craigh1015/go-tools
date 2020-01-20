@@ -92,3 +92,28 @@ func main() {
  }
 }
 ```
+
+## grpc tools
+
+- <https://github.com/grpc-ecosystem/awesome-grpc>
+- grpcui
+  - go get github.com/fullstorydev/grpcui
+  - go install github.com/fullstorydev/grpcui/cmd/grpcui
+  - grpcui -plaintext localhost:8080
+- gzh
+  - <https://ghz.sh/>
+- grpc-tools
+  - <https://github.com/bradleyjkemp/grpc-tools>
+  - brew install bradleyjkemp/formulae/grpc-tools
+  - go install github.com/bradleyjkemp/grpc-tools/...
+  - grpc-dump
+    - Need to use version that does not infer import paths
+    - Need to use <localtest.me> rather than <localhost> to allow proxy behaviour
+    - (grpc-dump) `cd grpc-tools/grpc-dump`
+    - (grpc-dump) `go run main.go -port 64517 -proto_roots /Users/charris/dev/fiji-apis`
+    - (hotel-search) `ENV=dev-integration http_proxy=http://localtest.me:64517 go run main.go`
+    - `grpcui -plaintext localtest.me:8080`
+    - `http_proxy=http://localtest.me:64517 grpcurl -d @ --plaintext localtest.me:8080 deem.hotel.searchservice.HotelService/CreateHotelSearch < CreateHotelSearch.json`
+- grpc-curl
+  - `grpcurl --plaintext localtest.me:8080 list`
+  - `grpcurl --plaintext localtest.me:8080 describe deem.hotel.searchservice.HotelService`
